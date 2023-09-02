@@ -30,16 +30,16 @@ class Facture(models.Model):
         return f"Facture {self.numero_Facture} de {self.tiers}"
     
 
-class Declaration(moldels.Model):
+class Declaration(models.Model):
     RAISON_SOCIAL = models.CharField(max_length=100)
     ID_FISCAL = models.CharField(max_length=20)
     ANNEE = models.PositiveIntegerField()
     PERIODE = models.CharField(max_length=10)
     Regime_choices = (
-        ('A', 'Régime d’encaissement N° 1 pour la declaration mensuelle'),
-        ('B', 'Régime d’encaissement N° 2 pour la declaration Trimestriel'),
+        ('A', 'Régime encaissement N° 1 pour la declaration mensuelle'),
+        ('B', 'Régime encaissement N° 2 pour la declaration Trimestriel'),
     )
-    REGIME = models.CharField(max_length=1, choices=REGIME_CHOICES)
+    REGIME = models.CharField(max_length=1, choices=Regime_choices)
     factures_fournisseur = models.ManyToManyField(Facture, related_name='declarations_fournisseur', blank=True)
     factures_clients = models.ManyToManyField(Facture, related_name='declarations_clients', blank=True)
     total_deductions = models.DecimalField(max_digits=10, decimal_places=2)
